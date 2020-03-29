@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: sinatra-app
+  labels:
+    app: sinatra-app
+    type: front-end
+spec:
+  template:
+   metadata:
+      name: sinatra-pod
+      labels:
+      app: sinatra-pod       
+      typs: front-end
+   spec:
+      containers:
+       - name: mycontainer
+         image: my-sinatra-app
+   replicas: 3
+   selector:
+    matchLabels:
+      type: front-end
+
+...
+apiVersion: v1
+kind: Service
+metadata:
+  name: unicorn-lb
+  labels:
+    app: sinatra-app
+    type: front-end
+spec:
+  selector:
+    app: sinatra-app
+    type: front-end
+  type: LoadBalancer
+  ports:
+   - port: 80
+     targetPort: 80
