@@ -11,7 +11,7 @@ spec:
       name: sinatra-pod
       labels:
       app: sinatra-pod       
-      typs: front-end
+      type: front-end
    spec:
       containers:
        - name: mycontainer
